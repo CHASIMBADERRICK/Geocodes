@@ -81,8 +81,10 @@ const Map = () => {
   };
 
   const defaultCenter = {
-    lat: -0.023559,
-    lng: 37.906193,
+    // lat: -0.023559,
+    // lng: 37.906193,
+    lat: -1.286389,
+    lng: 36.817223,
   };
 
   const [selected, setSelected] = useState({});
@@ -157,17 +159,20 @@ const Map = () => {
                 lng: facility.lat_long[1],
               }}
               onClick
+              
             />
-            {/* <InfoWindow
+            <InfoWindow
               position={{
                 lat: facility.lat_long[0],
                 lng: facility.lat_long[1],
               }}
               clickable={true}
               onCloseClick={() => setSelected({})}
+              onClick={() => onSelect(facility)}
             >
               <p>{facility.name}</p>
-            </InfoWindow> */}
+              {/* <p>{facility.lat_long}</p> */}
+            </InfoWindow>
           </>
         ))}
 
