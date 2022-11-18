@@ -61,6 +61,8 @@ const Map = () => {
     }
   };
 
+  const [selectedFacility, setselectedFacility] = useState({});
+
   const [currentPosition, setCurrentPosition] = useState({});
 
   const success = (position) => {
@@ -89,8 +91,8 @@ const Map = () => {
 
   const [selected, setSelected] = useState({});
 
-  const onSelect = (item) => {
-    setSelected(item);
+  const onSelect = (facility) => {
+    setSelected(facility);
   };
 
   const onMarkerDragEnd = (e) => {
@@ -139,7 +141,7 @@ const Map = () => {
 
   return (
     <LoadScript googleMapsApiKey="AIzaSyBBIG5y3qrmQcfLg7X0FkM06O_71S7UDts">
-      <GoogleMap mapContainerStyle={mapStyles} zoom={13} center={defaultCenter}>
+      <GoogleMap mapContainerStyle={mapStyles} zoom={10} center={defaultCenter}>
         {/* {locations.map((item) => {
           return (
             <Marker
@@ -149,16 +151,17 @@ const Map = () => {
             />
           );
         })} */}
+      
 
-        {facilities.map((facility, i) => (
+        {facilities.map((facility) => (
           <>
             <Marker
-              key={i}
+              key={facility}
               position={{
                 lat: facility.lat_long[0],
                 lng: facility.lat_long[1],
               }}
-              onClick
+              onClick={() => onSelect(facility)}
               
             />
             <InfoWindow
@@ -170,13 +173,20 @@ const Map = () => {
               onCloseClick={() => setSelected({})}
               onClick={() => onSelect(facility)}
             >
-              <p>{facility.name}</p>
+              <p><b>{facility.name}</b> <br></br><b>latitude</b>{facility.lat_long[0]} <br></br><b>longitude</b>{facility.lat_long[1]}</p>
+
+              
+            
               {/* <p>{facility.lat_long}</p> */}
             </InfoWindow>
           </>
         ))}
 
-        {selected.location && (
+        
+        
+
+
+        {/* {selected.location && (
           <InfoWindow
             position={selected.location}
             clickable={true}
@@ -184,7 +194,7 @@ const Map = () => {
           >
             <p>{selected.name}</p>
           </InfoWindow>
-        )}
+        )} */}
         {currentPosition.lat && <Marker position={currentPosition}></Marker>}
         {currentPosition.lat ? (
           <Marker
